@@ -46,7 +46,6 @@ class MySQLPipeline(object):
         myId = '1';
         tx.execute("SELECT 1 FROM NewsArticles WHERE url = %s", (item['url'], ))
         ret = tx.fetchone()
-        print('#### ret', ret);
         if not ret:
             result = tx.execute("INSERT INTO NewsArticles(name, description, url, imageUrl, createdAt, updatedAt, WebsiteId, NewsCategoryId) VALUES ('" + item['name'] + "', '" + item['description'] + "', '" + item['url'] + "', '" + item['imageUrl'] + "', '" + now + "', '" + now + "', '" + myId + "', '" + myId + "')"
             )
