@@ -1,14 +1,14 @@
 
-BOT_NAME = 'dapnews'
+BOT_NAME = 'freshnews'
 
-SPIDER_MODULES = ['dapnews.spiders']
-NEWSPIDER_MODULE = 'dapnews.spiders'
+SPIDER_MODULES = ['freshnews.spiders']
+NEWSPIDER_MODULE = 'freshnews.spiders'
 
 ROBOTSTXT_OBEY = True
 LOG_LEVEL = 'WARNING'
 
 ITEM_PIPELINES = {
-    'dapnews.pipelines.MySQLPipeline': 2
+    'freshnews.pipelines.MySQLPipeline': 2
 }
 
 DB_HOST = 'localhost'
