@@ -8,7 +8,7 @@ from scrapy.linkextractors import LinkExtractor
 class TestSpider(CrawlSpider):
     name = "kohsantepheap"
     allowed_domains = ["kohsantepheapdaily.com.kh"]
-    start_urls = ['https://kohsantepheapdaily.com.kh/category/security/']
+    start_urls = ['https://kohsantepheapdaily.com.kh/category/local-news/']
 
     def parse(self, response):
         hxs = scrapy.Selector(response)
