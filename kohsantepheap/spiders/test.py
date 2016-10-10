@@ -9,15 +9,22 @@ import time
 class TestSpider(CrawlSpider):
     name = "kohsantepheap"
     allowed_domains = ["kohsantepheapdaily.com.kh"]
-    start_urls = ['https://kohsantepheapdaily.com.kh/category/local-news/']
+    start_urls = [
+    'https://kohsantepheapdaily.com.kh/category/local-news/',
+    'https://kohsantepheapdaily.com.kh/category/international-news/',
+    ]
 
     def parse(self, response):
         now = time.strftime('%Y-%m-%d %H:%M:%S')
         hxs = scrapy.Selector(response)
+
         articles = hxs.xpath('//div[@class="articleItem"]')
         for article in articles:
             item = KohsantepheapItem()
-
+            if "local-news" in response.url:
+                item['categoryId'] = '1'
+            else:
+                item['categoryId'] = '2'
             text = article.xpath('div[@class="articleText"]')
             if not text:
                 print('KSP => [' + now + '] No Text Container')
