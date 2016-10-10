@@ -48,7 +48,7 @@ class MySQLPipeline(object):
         tx.execute("SELECT 1 FROM NewsArticles WHERE url = %s", (item['url'], ))
         ret = tx.fetchone()
         if not ret:
-            result = tx.execute("INSERT INTO NewsArticles(name, description, url, imageUrl, createdAt, updatedAt, WebsiteId, NewsCategoryId) VALUES ('" + item['name'] + "', '" + item['description'] + "', '" + item['url'] + "', '" + item['imageUrl'] + "', '" + now + "', '" + now + "', '" + '1' + "', '" + item['categoryId'] + "')"
+            result = tx.execute("INSERT INTO NewsArticles(name, description, url, imageUrl, createdAt, updatedAt, WebsiteId, NewsCategoryId) VALUES ('" + item['name'] + "', '" + item['description'] + "', '" + item['url'] + "', '" + item['imageUrl'] + "', '" + now + "', '" + now + "', '" + '2' + "', '" + item['categoryId'] + "')"
             )
             if result > 0:
                 self.stats.inc_value('database/items_added')

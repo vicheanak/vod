@@ -4,7 +4,7 @@
 import scrapy
 
 
-class KohsantepheapItem(scrapy.Item):
+class DapnewsItem(scrapy.Item):
     name = scrapy.Field()
     description = scrapy.Field()
     url = scrapy.Field()
