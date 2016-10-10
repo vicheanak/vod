@@ -3,6 +3,7 @@ import scrapy
 from scrapy.spiders import CrawlSpider, Rule
 from kohsantepheap.items import KohsantepheapItem
 from scrapy.linkextractors import LinkExtractor
+import time
 
 
 class TestSpider(CrawlSpider):
@@ -11,18 +12,44 @@ class TestSpider(CrawlSpider):
     start_urls = ['https://kohsantepheapdaily.com.kh/category/local-news/']
 
     def parse(self, response):
+        now = time.strftime('%Y-%m-%d %H:%M:%S')
         hxs = scrapy.Selector(response)
         articles = hxs.xpath('//div[@class="articleItem"]')
         for article in articles:
-            text = article.xpath('div[@class="articleText"]')
-            image = article.xpath('div[@class="articleImage"]')
             item = KohsantepheapItem()
-            item['name'] = text.xpath('h4/a/text()').extract()[0]
-            item['description'] = ''
-            if text.xpath('p/text()')[1]:
-                item['description'] = text.xpath('p/text()')[1].extract()
-            item['url'] = 'https://kohsantepheapdaily.com.kh' + text.xpath("h4/a/@href").extract()[0]
-            item['imageUrl'] = image.xpath('a/img/@src').extract()[0]
+
+            text = article.xpath('div[@class="articleText"]')
+            if not text:
+                print('KSP => [' + now + '] No Text Container')
+
+            image = article.xpath('div[@class="articleImage"]')
+            if not image:
+                print('KSP => [' + now + '] No Image Container')
+
+            name = text.xpath('h4/a/text()')
+            if not name:
+                print('KSP => [' + now + '] No title')
+            else:
+                item['name'] = name.extract()[0]
+
+            description = text.xpath('p/text()')
+            if not description:
+                print('KSP => [' + now + '] No description')
+            else:
+                item['description'] = description[1].extract()
+
+            url = text.xpath("h4/a/@href")
+            if not url:
+                print('KSP => [' + now + '] No url')
+            else:
+                item['url'] = 'https://kohsantepheapdaily.com.kh' + url.extract()[0]
+
+            imageUrl = image.xpath('a/img/@src')
+            if not imageUrl:
+                print('KSP => [' + now + '] No imageUrl')
+            else:
+                item['imageUrl'] = imageUrl.extract()[0]
+
             yield item
 
     def parse_detail(self, response):
