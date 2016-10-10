@@ -5,7 +5,7 @@ SPIDER_MODULES = ['kohsantepheap.spiders']
 NEWSPIDER_MODULE = 'kohsantepheap.spiders'
 
 ROBOTSTXT_OBEY = True
-LOG_LEVEL = 'WARNING'
+# LOG_LEVEL = 'INFO'
 
 ITEM_PIPELINES = {
     'kohsantepheap.pipelines.MySQLPipeline': 2

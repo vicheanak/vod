@@ -18,7 +18,9 @@ class TestSpider(CrawlSpider):
             image = article.xpath('div[@class="articleImage"]')
             item = KohsantepheapItem()
             item['name'] = text.xpath('h4/a/text()').extract()[0]
-            item['description'] = text.xpath('p/text()').extract()[1]
+            item['description'] = ''
+            if text.xpath('p/text()')[1]:
+                item['description'] = text.xpath('p/text()')[1].extract()
             item['url'] = 'https://kohsantepheapdaily.com.kh' + text.xpath("h4/a/@href").extract()[0]
             item['imageUrl'] = image.xpath('a/img/@src').extract()[0]
             yield item
