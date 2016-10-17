@@ -43,6 +43,7 @@ class TestSpider(CrawlSpider):
             imageUrl = article.xpath("""
                 img[1]/@src
                 """)
+            item['imageUrl'] = ''
             if not imageUrl:
                 print('Vod => [' + now + '] No imageUrl')
             else:
