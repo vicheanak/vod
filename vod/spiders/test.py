@@ -112,7 +112,6 @@ class TestSpider(CrawlSpider):
         for c in content:
             htmlcontent += lxml.html.tostring(c, encoding=unicode)
         item['htmlcontent'] = htmlcontent
-        print item['htmlcontent']
 
 
         yield item
